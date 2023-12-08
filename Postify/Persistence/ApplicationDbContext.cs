@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Postify.Abstractions;
+using Postify.Abstractions.Infrastructure;
 using Postify.Domain;
-using System.Reflection;
 
-namespace Postify.Data;
+namespace Postify.Persistence;
 
 public class ApplicationDbContext : DbContext
 {
+    internal const string DefaultConnectionStringName = "Default";
+
     private readonly IDateConverter _dateConverter;
     private readonly IHasher _hasher;
 
@@ -26,17 +28,19 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
         modelBuilder.Entity<User>().HasData(new User
         {
             Id = Guid.NewGuid(),
             Username = "admin",
-            Password = _hasher.HashData("123"),
-            UserRole = UserRole.Admin
+            Password = _hasher.HashData("admin"),
+            UserRole = UserRole.Admin,
+            CreatedDate = DateTime.UtcNow,
+            LastModifiedDate = DateTime.UtcNow,
+            PersianCreatedDate = _dateConverter.ToPersianDateTime(DateTime.UtcNow),
+            PersianLastModifiedDate = _dateConverter.ToPersianDateTime(DateTime.UtcNow)
         });
-
-        base.OnModelCreating(modelBuilder);
     }
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
@@ -56,17 +60,5 @@ public class ApplicationDbContext : DbContext
         }
 
         return base.SaveChangesAsync(cancellationToken);
-    }
-}
-
-public static class InitialDatabaseCreation
-{
-    public static void EnsureDatabaseCreated(this IServiceProvider serviceProvider)
-    {
-        using var scope = serviceProvider.CreateScope();
-
-        var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-
-        dbContext.Database.EnsureCreated();
     }
 }

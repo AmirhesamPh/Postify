@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Postify.Domain;
 
-namespace Postify.Data.Configurations;
+namespace Postify.Persistence.Configurations;
 
 public class PostConfiguration : IEntityTypeConfiguration<Post>
 {
@@ -14,5 +14,7 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasOne(x => x.User)
             .WithMany(x => x.UserPosts)
             .HasForeignKey(x => x.UserId);
+
+        builder.HasQueryFilter(x => x.IsActive);
     }
 }

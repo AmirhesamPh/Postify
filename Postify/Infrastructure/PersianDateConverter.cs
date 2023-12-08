@@ -1,4 +1,4 @@
-﻿using Postify.Abstractions;
+﻿using Postify.Abstractions.Infrastructure;
 using System.Globalization;
 
 namespace Postify.Services;
@@ -27,17 +27,5 @@ public class PersianDateConverter : IDateConverter
             .ToString("00");
 
         return $"{year}/{month}/{day}-{dateTime.Hour}:{dateTime.Minute}";
-    }
-}
-
-public static class PersianDateConverterRegisteration
-{
-    public static IServiceCollection AddPersianDateConverter(this IServiceCollection services)
-    {
-        services
-            .AddSingleton<PersianCalendar>()
-            .AddSingleton<IDateConverter, PersianDateConverter>();
-
-        return services;
     }
 }

@@ -1,19 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Postify.Abstractions;
 using Postify.Domain;
 
-namespace Postify.Data.Configurations;
+namespace Postify.Persistence.Configurations;
 
 public class UserConfiguration : IEntityTypeConfiguration<User>
 {
-    private readonly IHasher _hasher;
-
-    public UserConfiguration(IHasher hasher)
-    {
-        _hasher = hasher;
-    }
-
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(x => x.Id);

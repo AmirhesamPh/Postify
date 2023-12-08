@@ -1,4 +1,4 @@
-﻿namespace Postify.Abstractions;
+﻿namespace Postify.Abstractions.Infrastructure;
 
 public interface IDateConverter
 {

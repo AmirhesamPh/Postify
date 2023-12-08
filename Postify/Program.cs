@@ -1,18 +1,33 @@
-using Microsoft.EntityFrameworkCore;
-using Postify.Data;
-using Postify.Services;
+using FluentValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Postify.Endpoints;
+using Postify.Infrastructure;
+using Postify.Middlewares;
+using Postify.Options;
+using Postify.Options.Setups;
+using Postify.Persistence;
+using Postify.Validation;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddPersianDateConverter();
-builder.Services.AddHasher();
+builder.Services.AddOptions<JwtOptions>()
+    .BindConfiguration(JwtOptions.ConfigurationSectionName)
+    .ValidateFluentValidation()
+    .ValidateOnStart();
 
-var connectionString = builder.Configuration.GetConnectionString("Default");
+builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
+builder.Services.ConfigureOptions<SwaggerGenOptionsSetup>();
 
-builder.Services.AddDbContext<ApplicationDbContext>(opt => opt.UseSqlServer(connectionString));
+builder.Services.AddInfrasrtucture();
+builder.Services.AddPersistence(builder.Configuration);
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -21,9 +36,19 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 
-    app.Services.EnsureDatabaseCreated();
+    app.Services.EnsureDatabaseCreated<ApplicationDbContext>();
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.UseGlobalExceptionHandling();
+
+app.MapAccountEndpoints();
+
+app.MapPostEndpoints();
 
 app.Run();

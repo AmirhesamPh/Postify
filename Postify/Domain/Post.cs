@@ -11,4 +11,6 @@ public class Post : BaseDomainEntity<Guid>
     public User? User { get; set; }
 
     public Guid UserId { get; set; }
+
+    public bool IsActive { get; set; } = true;
 }

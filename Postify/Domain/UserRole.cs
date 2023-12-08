@@ -1,4 +1,4 @@
-﻿namespace Postify.Abstractions;
+﻿namespace Postify.Domain;
 
 public enum UserRole
 {

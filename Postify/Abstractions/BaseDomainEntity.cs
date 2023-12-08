@@ -9,7 +9,7 @@ public abstract class BaseDomainEntity<TKey>
 
     public DateTime LastModifiedDate { get; set; }
 
-    public string? PersianCreatedDate { get; internal set; }
+    public string? PersianCreatedDate { get; set; }
 
-    public string? PersianLastModifiedDate { get; internal set; }
+    public string? PersianLastModifiedDate { get; set; }
 }
