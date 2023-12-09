@@ -126,11 +126,11 @@ public static class PostsEndpoints
     }
 
     public static async Task<IResult> SetPostStatusAsync(
-        [FromQuery] Guid id,
+        [FromQuery] Guid postId,
         [FromQuery] bool status,
         IPostRepository postRepository)
     {
-        var post = await postRepository.GetByIdAsync(id);
+        var post = await postRepository.GetByIdAsync(postId);
 
         if (post is null)
             return TypedResults.NotFound<FailureResult>(ResponseMessages.PostNotFound);
