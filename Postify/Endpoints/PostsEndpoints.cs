@@ -42,9 +42,9 @@ public static class PostsEndpoints
             .WithOpenApi();
 
         group
-            .MapPut($"/{Apis.Posts.Endpoints.TogglePostStatus}", TogglePostStatusAsync)
+            .MapPut($"/{Apis.Posts.Endpoints.SetPostStatus}", SetPostStatusAsync)
             .RequireAuthorization(AuthorizationPolicies.AdminUser)
-            .WithName(Apis.Posts.Endpoints.TogglePostStatus)
+            .WithName(Apis.Posts.Endpoints.SetPostStatus)
             .WithOpenApi();
     }
 
@@ -125,7 +125,7 @@ public static class PostsEndpoints
         return TypedResults.Ok<SuccessResult>(ResponseMessages.PostDeletedSuccessfully);
     }
 
-    public static async Task<IResult> TogglePostStatusAsync(
+    public static async Task<IResult> SetPostStatusAsync(
         [FromQuery] Guid id,
         [FromQuery] bool status,
         IPostRepository postRepository)
@@ -135,8 +135,8 @@ public static class PostsEndpoints
         if (post is null)
             return TypedResults.NotFound<FailureResult>(ResponseMessages.PostNotFound);
 
-        await postRepository.TogglePostStatusAsync(post, status);
+        await postRepository.SetPostStatusAsync(post, status);
 
-        return TypedResults.Ok<SuccessResult>(ResponseMessages.PostStatusToggledSuccessfully);
+        return TypedResults.Ok<SuccessResult>(ResponseMessages.PostStatusModifiedSuccessfully);
     }
 }

@@ -17,5 +17,5 @@ public interface IPostRepository
 
     Task DeleteAsync(Post post);
 
-    Task TogglePostStatusAsync(Post post, bool status);
+    Task SetPostStatusAsync(Post post, bool status);
 }

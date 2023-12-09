@@ -34,8 +34,6 @@ public static class AccountEndpoints
         IHasher hasher,
         IJwtProvider jwtProvider)
     {
-
-
         var validationErrors = validator
             .Validate(signInInfo)
             .SelectErrorMessages();

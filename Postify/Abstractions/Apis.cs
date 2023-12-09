@@ -23,7 +23,7 @@ public static class Apis
             public const string GetAll = "GetAll";
             public const string Update = "UpdatePost";
             public const string Delete = "DeletePost";
-            public const string TogglePostStatus = "TogglePostStatus";
+            public const string SetPostStatus = "SetPostStatus";
         }
     }
 }

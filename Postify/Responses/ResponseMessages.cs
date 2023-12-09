@@ -7,5 +7,5 @@ public static class ResponseMessages
     public const string PostNotFound = "Post not found!";
     public const string PostUpdatedSuccessfully = "Post updated successfully";
     public const string PostDeletedSuccessfully = "Post deleted successfully";
-    public const string PostStatusToggledSuccessfully = "Post status toggled successfully";
+    public const string PostStatusModifiedSuccessfully = "Post status modified successfully";
 }

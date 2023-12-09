@@ -47,7 +47,7 @@ public class PostRepository : IPostRepository
         await _dbContext.SaveChangesAsync();
     }
 
-    public async Task TogglePostStatusAsync(Post post, bool status)
+    public async Task SetPostStatusAsync(Post post, bool status)
     {
         post.IsActive = status;
 
