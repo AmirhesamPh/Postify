@@ -3,7 +3,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-namespace Postify.OptionsConfiguration.Setups;
+namespace Postify.Configuration.Setups;
 
 public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
 {

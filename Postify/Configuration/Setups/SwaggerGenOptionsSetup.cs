@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace Postify.OptionsConfiguration.Setups;
+namespace Postify.Configuration.Setups;
 
 public class SwaggerGenOptionsSetup : IConfigureOptions<SwaggerGenOptions>
 {

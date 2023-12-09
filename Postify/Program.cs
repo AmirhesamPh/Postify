@@ -3,8 +3,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Postify.Endpoints;
 using Postify.Infrastructure;
 using Postify.Middlewares;
-using Postify.OptionsConfiguration;
-using Postify.OptionsConfiguration.Setups;
+using Postify.Configuration;
+using Postify.Configuration.Setups;
 using Postify.Persistence;
 using Postify.Validation;
 

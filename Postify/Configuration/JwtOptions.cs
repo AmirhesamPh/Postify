@@ -1,4 +1,4 @@
-﻿namespace Postify.OptionsConfiguration;
+﻿namespace Postify.Configuration;
 
 public class JwtOptions
 {
