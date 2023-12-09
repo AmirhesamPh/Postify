@@ -2,7 +2,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Postify.Abstractions.Infrastructure;
 using Postify.Domain;
-using Postify.Options;
+using Postify.OptionsConfiguration;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;

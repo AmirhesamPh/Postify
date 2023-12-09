@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.OpenApi.Models;
 using Postify.Abstractions;
 using Postify.Abstractions.Infrastructure;
 using Postify.Abstractions.Persistence;
-using Postify.Domain;
 using Postify.Requests;
 using Postify.Responses;
 using Postify.Validation;
@@ -24,10 +24,10 @@ public static class AccountEndpoints
         group
             .MapPost($"/{Apis.Accounts.Endpoints.SignUp}", SignUpAsync)
             .WithName(Apis.Accounts.Endpoints.SignUp)
-            .WithOpenApi();
+            .WithOpenApi(SetOpenApiOperationForSignUpEndpoint);
     }
 
-    public static async Task<IResult> SignInAsync(
+    private static async Task<IResult> SignInAsync(
         [FromBody] SignInInfo signInInfo,
         IValidator<SignInInfo> validator,
         IUserRepository userRepository,
@@ -51,7 +51,7 @@ public static class AccountEndpoints
         return TypedResults.Ok<SuccessResult<string>>(token);
     }
 
-    public static async Task<IResult> SignUpAsync(
+    private static async Task<IResult> SignUpAsync(
         [FromBody] SignUpInfo signUpInfo,
         IValidator<SignUpInfo> validator,
         IUserRepository userRepository,
@@ -74,8 +74,15 @@ public static class AccountEndpoints
         var addedUser = await userRepository.AddAsync(
             signUpInfo.Username,
             passwordHash,
-            Enum.Parse<UserRole>(signUpInfo.UserRole, true));
+            signUpInfo.UserRole);
 
         return TypedResults.Ok<SuccessResult<Guid>>(addedUser.Id);
+    }
+
+    private static OpenApiOperation SetOpenApiOperationForSignUpEndpoint(OpenApiOperation operation)
+    {
+        operation.Description = "Please provide a username (no limit), a password (no limit) and a user role ('Admin' or 'Regular')";
+
+        return operation;
     }
 }

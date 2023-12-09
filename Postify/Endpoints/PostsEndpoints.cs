@@ -48,7 +48,7 @@ public static class PostsEndpoints
             .WithOpenApi();
     }
 
-    public static async Task<IResult> CreatePostAsync(
+    private static async Task<IResult> CreatePostAsync(
         [FromBody] PostInfo postInfo,
         IValidator<PostInfo> validator,
         IPostRepository postRepository,
@@ -71,7 +71,7 @@ public static class PostsEndpoints
         return TypedResults.Ok<SuccessResult<Guid>>(addedPost.Id);
     }
 
-    public static async Task<IResult> GetAllPosts(
+    private static async Task<IResult> GetAllPosts(
         IPostRepository postRepository,
         HttpContext httpContext)
     {
@@ -85,7 +85,7 @@ public static class PostsEndpoints
         return TypedResults.Ok<SuccessResult<List<PostDto>>>(posts);
     }
 
-    public static async Task<IResult> UpdatePostAsync(
+    private static async Task<IResult> UpdatePostAsync(
         [FromQuery] Guid postId,
         [FromBody] PostInfo newPostInfo,
         IValidator<PostInfo> validator,
@@ -111,7 +111,7 @@ public static class PostsEndpoints
         return TypedResults.Ok<SuccessResult>(ResponseMessages.PostUpdatedSuccessfully);
     }
 
-    public static async Task<IResult> DeletePostAsync(
+    private static async Task<IResult> DeletePostAsync(
         [FromQuery] Guid postId,
         IPostRepository postRepository)
     {
@@ -125,7 +125,7 @@ public static class PostsEndpoints
         return TypedResults.Ok<SuccessResult>(ResponseMessages.PostDeletedSuccessfully);
     }
 
-    public static async Task<IResult> SetPostStatusAsync(
+    private static async Task<IResult> SetPostStatusAsync(
         [FromQuery] Guid postId,
         [FromQuery] bool status,
         IPostRepository postRepository)

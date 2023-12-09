@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using Postify.Options;
+using Postify.OptionsConfiguration;
 
 namespace Postify.Validation.Validators;
 

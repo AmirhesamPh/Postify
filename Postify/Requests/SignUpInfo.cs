@@ -1,3 +1,5 @@
-﻿namespace Postify.Requests;
+﻿using Postify.Domain;
 
-public record SignUpInfo(string Username, string Password, string UserRole);
+namespace Postify.Requests;
+
+public record SignUpInfo(string Username, string Password, UserRole UserRole);
