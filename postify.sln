@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{1AB792B3-BB97-4EFD-8A6B-83CC9650BB65}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{6CA56356-7215-4856-AA87-3CF5A019AFBE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Postify.Api", "src\Postify.Api\Postify.Api.csproj", "{D42CF6BB-D110-44DA-8F79-5BE8F61450B9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D42CF6BB-D110-44DA-8F79-5BE8F61450B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D42CF6BB-D110-44DA-8F79-5BE8F61450B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D42CF6BB-D110-44DA-8F79-5BE8F61450B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D42CF6BB-D110-44DA-8F79-5BE8F61450B9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D42CF6BB-D110-44DA-8F79-5BE8F61450B9} = {1AB792B3-BB97-4EFD-8A6B-83CC9650BB65}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D6F6DC32-4F35-4747-9A96-0D42E81FD8E9}
+	EndGlobalSection
+EndGlobal
