@@ -1,10 +1,10 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Postify.Configuration;
+using Postify.Configuration.Setups;
 using Postify.Endpoints;
 using Postify.Infrastructure;
 using Postify.Middlewares;
-using Postify.Configuration;
-using Postify.Configuration.Setups;
 using Postify.Persistence;
 using Postify.Validation;
 
