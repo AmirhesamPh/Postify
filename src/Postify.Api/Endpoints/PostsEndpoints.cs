@@ -56,9 +56,9 @@ public static class PostsEndpoints
     {
         var validationErrors = validator
             .Validate(postInfo)
-            .SelectErrorMessages();
+            .ToErrorMessages();
 
-        if (validationErrors.Any())
+        if (validationErrors.Length != 0)
             return TypedResults.BadRequest<FailureResult>(validationErrors);
 
         var authenticatedUserId = httpContext.GetAuthenticatedUserId();
@@ -93,9 +93,9 @@ public static class PostsEndpoints
     {
         var validationErrors = validator
             .Validate(newPostInfo)
-            .SelectErrorMessages();
+            .ToErrorMessages();
 
-        if (validationErrors.Any())
+        if (validationErrors.Length != 0)
             return TypedResults.BadRequest<FailureResult>(validationErrors);
 
         var post = await postRepository.GetByIdAsync(postId);

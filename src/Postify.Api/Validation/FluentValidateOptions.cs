@@ -3,19 +3,12 @@ using Microsoft.Extensions.Options;
 
 namespace Postify.Validation;
 
-public class FluentValidateOptions<TOptions>
+public class FluentValidateOptions<TOptions>(
+    IServiceProvider serviceProvider,
+    string? _name)
     : IValidateOptions<TOptions>
     where TOptions : class
 {
-    private readonly IServiceProvider _serviceProvider;
-    private readonly string? _name;
-
-    public FluentValidateOptions(IServiceProvider serviceProvider, string? name)
-    {
-        _serviceProvider = serviceProvider;
-        _name = name;
-    }
-
     public ValidateOptionsResult Validate(string? name, TOptions options)
     {
         if (_name is not null && _name != name)
@@ -23,7 +16,7 @@ public class FluentValidateOptions<TOptions>
 
         ArgumentNullException.ThrowIfNull(options);
 
-        using var scope = _serviceProvider.CreateScope();
+        using var scope = serviceProvider.CreateScope();
 
         var validator = scope.ServiceProvider.GetRequiredService<IValidator<TOptions>>();
 

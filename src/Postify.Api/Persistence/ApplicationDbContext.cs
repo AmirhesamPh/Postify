@@ -5,22 +5,12 @@ using Postify.Domain;
 
 namespace Postify.Persistence;
 
-public class ApplicationDbContext : DbContext
+public class ApplicationDbContext(
+    DbContextOptions<ApplicationDbContext> options,
+    IDateConverter dateConverter,
+    IHasher hasher) : DbContext(options)
 {
     internal const string DefaultConnectionStringName = "Default";
-
-    private readonly IDateConverter _dateConverter;
-    private readonly IHasher _hasher;
-
-    public ApplicationDbContext(
-        DbContextOptions<ApplicationDbContext> options,
-        IDateConverter dateConverter,
-        IHasher hasher)
-        : base(options)
-    {
-        _dateConverter = dateConverter;
-        _hasher = hasher;
-    }
 
     public DbSet<User> Users => Set<User>();
 
@@ -34,12 +24,12 @@ public class ApplicationDbContext : DbContext
         {
             Id = Guid.NewGuid(),
             Username = "admin",
-            Password = _hasher.HashData("admin"),
+            Password = hasher.HashData("admin"),
             UserRole = UserRole.Admin,
             CreatedDate = DateTime.UtcNow,
             LastModifiedDate = DateTime.UtcNow,
-            PersianCreatedDate = _dateConverter.ToPersianDateTime(DateTime.UtcNow),
-            PersianLastModifiedDate = _dateConverter.ToPersianDateTime(DateTime.UtcNow)
+            PersianCreatedDate = dateConverter.ToPersianDateTime(DateTime.UtcNow),
+            PersianLastModifiedDate = dateConverter.ToPersianDateTime(DateTime.UtcNow)
         });
     }
 
@@ -51,12 +41,12 @@ public class ApplicationDbContext : DbContext
             {
                 entry.Entity.CreatedDate = DateTime.UtcNow;
 
-                entry.Entity.PersianCreatedDate = _dateConverter.ToPersianDateTime(entry.Entity.CreatedDate);
+                entry.Entity.PersianCreatedDate = dateConverter.ToPersianDateTime(entry.Entity.CreatedDate);
             }
 
             entry.Entity.LastModifiedDate = DateTime.UtcNow;
 
-            entry.Entity.PersianLastModifiedDate = _dateConverter.ToPersianDateTime(entry.Entity.LastModifiedDate);
+            entry.Entity.PersianLastModifiedDate = dateConverter.ToPersianDateTime(entry.Entity.LastModifiedDate);
         }
 
         return base.SaveChangesAsync(cancellationToken);

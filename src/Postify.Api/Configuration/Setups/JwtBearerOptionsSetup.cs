@@ -5,14 +5,10 @@ using System.Text;
 
 namespace Postify.Configuration.Setups;
 
-public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
+public class JwtBearerOptionsSetup(IOptions<JwtOptions> jwtSettings)
+    : IConfigureNamedOptions<JwtBearerOptions>
 {
-    private readonly JwtOptions _jwtOptions;
-
-    public JwtBearerOptionsSetup(IOptions<JwtOptions> jwtSettings)
-    {
-        _jwtOptions = jwtSettings.Value;
-    }
+    private readonly JwtOptions _jwtOptions = jwtSettings.Value;
 
     public void Configure(string? name, JwtBearerOptions options) => Configure(options);
 

@@ -36,9 +36,9 @@ public static class AccountEndpoints
     {
         var validationErrors = validator
             .Validate(signInInfo)
-            .SelectErrorMessages();
+            .ToErrorMessages();
 
-        if (validationErrors.Any())
+        if (validationErrors.Length != 0)
             return TypedResults.BadRequest<FailureResult>(validationErrors);
 
         var user = await userRepository.GetByUsernameAsync(signInInfo.Username);
@@ -59,9 +59,9 @@ public static class AccountEndpoints
     {
         var validationErrors = validator
             .Validate(signUpInfo)
-            .SelectErrorMessages();
+            .ToErrorMessages();
 
-        if (validationErrors.Any())
+        if (validationErrors.Length != 0)
             return TypedResults.BadRequest<FailureResult>(validationErrors);
 
         var isUsernameTaken = await userRepository.IsUsernameRegisteredAsync(signUpInfo.Username);

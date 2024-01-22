@@ -4,15 +4,10 @@ using Postify.Abstractions.Infrastructure;
 
 namespace Postify.Infrastructure;
 
-public class RoleBasedAuthorizationPolicyProvider
-    : DefaultAuthorizationPolicyProvider
+public class RoleBasedAuthorizationPolicyProvider(
+    IOptions<AuthorizationOptions> options)
+        : DefaultAuthorizationPolicyProvider(options)
 {
-    public RoleBasedAuthorizationPolicyProvider(
-        IOptions<AuthorizationOptions> options)
-        : base(options)
-    {
-    }
-
     public override async Task<AuthorizationPolicy?> GetPolicyAsync(string policyName)
     {
         var policy = await base.GetPolicyAsync(policyName);
