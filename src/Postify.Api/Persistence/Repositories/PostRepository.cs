@@ -3,15 +3,8 @@ using Postify.Domain;
 
 namespace Postify.Persistence.Repositories;
 
-public class PostRepository : IPostRepository
+public class PostRepository(ApplicationDbContext _dbContext) : IPostRepository
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public PostRepository(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public IQueryable<Post> GetAllByUserId(Guid userId)
         => _dbContext.Posts.Where(p => p.UserId == userId);
 

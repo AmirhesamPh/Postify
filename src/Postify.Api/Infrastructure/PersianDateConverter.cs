@@ -3,14 +3,10 @@ using System.Globalization;
 
 namespace Postify.Services;
 
-public class PersianDateConverter : IDateConverter
+public class PersianDateConverter(PersianCalendar persianCalendar)
+    : IDateConverter
 {
-    private readonly PersianCalendar _persianCalendar;
-
-    public PersianDateConverter(PersianCalendar persianCalendar)
-    {
-        _persianCalendar = persianCalendar;
-    }
+    private readonly PersianCalendar _persianCalendar = persianCalendar;
 
     public string ToPersianDateTime(DateTime dateTime)
     {

@@ -4,15 +4,8 @@ using Postify.Domain;
 
 namespace Postify.Persistence.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository(ApplicationDbContext _dbContext) : IUserRepository
 {
-    private readonly ApplicationDbContext _dbContext;
-
-    public UserRepository(ApplicationDbContext dbContext)
-    {
-        _dbContext = dbContext;
-    }
-
     public async Task<bool> IsUsernameRegisteredAsync(string username)
         => await _dbContext.Users.AnyAsync(u => u.Username == username);
 

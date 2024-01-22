@@ -4,10 +4,10 @@ namespace Postify.Validation;
 
 public static class ValidationResultExtensions
 {
-    public static string[] SelectErrorMessages(this ValidationResult result)
+    public static string[] ToErrorMessages(this ValidationResult result)
     {
         if (result.IsValid)
-            return Array.Empty<string>();
+            return [];
 
         return result.Errors
             .Select(e => $"{e.PropertyName}: {e.ErrorMessage}")

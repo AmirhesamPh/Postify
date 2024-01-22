@@ -13,7 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddOptions<JwtOptions>()
+builder.Services
+    .AddOptions<JwtOptions>()
     .BindConfiguration(JwtOptions.ConfigurationSectionName)
     .ValidateFluentValidation()
     .ValidateOnStart();
@@ -25,7 +26,9 @@ builder.Services.AddInfrasrtucture();
 builder.Services.AddPersistence(builder.Configuration);
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer();
+builder.Services
+    .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
 
 builder.Services.AddAuthorization();
 

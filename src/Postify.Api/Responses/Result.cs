@@ -13,13 +13,9 @@ public abstract class Result
     public string[]? Messages { get; set; }
 }
 
-public class SuccessResult : Result
+public class SuccessResult(params string[]? messages)
+    : Result(true, messages)
 {
-    public SuccessResult(params string[]? messages)
-        : base(true, messages)
-    {
-    }
-
     public static implicit operator SuccessResult(string message)
         => new(message);
 
@@ -27,27 +23,18 @@ public class SuccessResult : Result
         => new(messages);
 }
 
-public class SuccessResult<T> : Result
+public class SuccessResult<T>(T? data, params string[]? messages)
+    : Result(true, messages)
 {
-    public SuccessResult(T? data, params string[]? messages)
-        : base(true, messages)
-    {
-        Data = data;
-    }
-
-    public T? Data { get; }
+    public T? Data { get; } = data;
 
     public static implicit operator SuccessResult<T>(T? data)
         => new(data, null);
 }
 
-public class FailureResult : Result
+public class FailureResult(params string[]? messages)
+    : Result(false, messages)
 {
-    public FailureResult(params string[]? messages)
-        : base(false, messages)
-    {
-    }
-
     public static implicit operator FailureResult(string message)
         => new(message);
 
